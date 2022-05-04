@@ -4,21 +4,35 @@ console.log('Form index.js')
 // Store =Subscribe=> APP =Dispatch=> Action => Reducers => Store
 
 // Create Actions {type, payload}
-const BUY_CAKE = 'BUY_CAKE'; //type
+// types
+const BUY_CAKE = 'BUY_CAKE';
+const BUY_ICECREAME = 'BUY_ICECREAME'
 //action creator
 const buyCake = () => ({
     //action object
     type: BUY_CAKE,
     info: 'First redux action'
 })
+const buyIceCreame = () => ({
+    type: BUY_ICECREAME
+});
 //Reducers
 const initialState = {
     numberOfCakes: 10,
+    numberOfIceCreams: 20,
 }
 const reducer = (previousState = initialState, action) => {
     switch (action.type) {
         case BUY_CAKE:
-            return { ...previousState, numberOfCakes: previousState.numberOfCakes - 1 };
+            return {
+                ...previousState,
+                numberOfCakes: previousState.numberOfCakes - 1,
+            };
+        case BUY_ICECREAME:
+            return {
+                ...previousState,
+                numberOfIceCreams: previousState.numberOfIceCreams - 1,
+            }
         default:
             return { ...previousState };
     }
@@ -31,10 +45,17 @@ const reducer = (previousState = initialState, action) => {
 // 5. Handels unregistering of listeners via function returned by subscribe(<listeners>)
 
 //creating store
-const store = createStore(reducer)
-console.log('Initial State: ', store.getState())
-const unsubscribe = store.subscribe(() => console.log('Updated State: ', store.getState()))
+const store = createStore(reducer);
+console.log('Initial State:');
+console.table([store.getState()]);
+const unsubscribe = store.subscribe(() => {
+    console.log('Updated State:');
+    console.table([store.getState()]);
+})
 store.dispatch(buyCake());
 store.dispatch(buyCake());
 store.dispatch(buyCake());
+store.dispatch(buyIceCreame());
+store.dispatch(buyIceCreame());
+store.dispatch(buyIceCreame());
 unsubscribe()
