@@ -1,6 +1,12 @@
 const redux = require('redux'); //Initilization
+const reudxLogger = require('redux-logger');
 const createStore = redux.createStore;
-const combineReducers = redux.combineReducers
+const combineReducers = redux.combineReducers;
+// Middleware
+// Adds extra features to redux
+// Third party extention point between an action and reducer
+const logger = reudxLogger.createLogger();
+const applyMiddleware = redux.applyMiddleware;
 console.log('Form index.js')
 // Store =Subscribe=> APP =Dispatch=> Action => Reducers => Store
 
@@ -81,12 +87,12 @@ const rootReducers = combineReducers({
     numberOfCakes: CakeReducer,
     numberOfIceCreams: IceCreameReducer,
 })
-const store = createStore(rootReducers);
+const store = createStore(rootReducers, applyMiddleware(logger));
 console.log('Initial State:');
 console.table([store.getState()]);
 const unsubscribe = store.subscribe(() => {
     console.log('Updated State:');
-    console.table([store.getState()]);
+    // console.table([store.getState()]);
 })
 store.dispatch(buyCake());
 store.dispatch(buyCake());
