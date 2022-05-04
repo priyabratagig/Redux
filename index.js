@@ -1,5 +1,6 @@
 const redux = require('redux'); //Initilization
 const createStore = redux.createStore;
+const combineReducers = redux.combineReducers
 console.log('Form index.js')
 // Store =Subscribe=> APP =Dispatch=> Action => Reducers => Store
 
@@ -16,18 +17,48 @@ const buyCake = () => ({
 const buyIceCreame = () => ({
     type: BUY_ICECREAME
 });
-//Reducers
-const initialState = {
+//Creating Reducers
+// Initial States
+// const initialState = {
+//     numberOfCakes: 10,
+//     numberOfIceCreams: 20,
+// }
+const InitialCakeState = {
     numberOfCakes: 10,
+};
+const initialIceCreamState = {
     numberOfIceCreams: 20,
-}
-const reducer = (previousState = initialState, action) => {
+};
+// Reducers
+// const reducer = (previousState = initialState, action) => {
+//     switch (action.type) {
+//         case BUY_CAKE:
+//             return {
+//                 ...previousState,
+//                 numberOfCakes: previousState.numberOfCakes - 1,
+//             };
+//         case BUY_ICECREAME:
+//             return {
+//                 ...previousState,
+//                 numberOfIceCreams: previousState.numberOfIceCreams - 1,
+//             }
+//         default:
+//             return { ...previousState };
+//     }
+// }
+const CakeReducer = (previousState = InitialCakeState, action) => {
     switch (action.type) {
         case BUY_CAKE:
             return {
                 ...previousState,
                 numberOfCakes: previousState.numberOfCakes - 1,
             };
+        default:
+            return { ...previousState };
+    }
+}
+const IceCreameReducer = (previousState = initialIceCreamState, action) => {
+    switch (action.type) {
         case BUY_ICECREAME:
             return {
                 ...previousState,
@@ -45,7 +76,12 @@ const reducer = (previousState = initialState, action) => {
 // 5. Handels unregistering of listeners via function returned by subscribe(<listeners>)
 
 //creating store
-const store = createStore(reducer);
+const rootReducers = combineReducers({
+    // statesName: corresponding reducers
+    numberOfCakes: CakeReducer,
+    numberOfIceCreams: IceCreameReducer,
+})
+const store = createStore(rootReducers);
 console.log('Initial State:');
 console.table([store.getState()]);
 const unsubscribe = store.subscribe(() => {
