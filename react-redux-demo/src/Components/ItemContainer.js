@@ -1,10 +1,13 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { buyCake } from '../redux'
+import { buyCake, buyIcecreams } from '../redux'
 
 const ItemContainer = (props) => {
     return (
-        <h2>Items {props.item} - {props.itemQuantity}</h2>
+        <div>
+            <h2>Items {props.item} - {props.itemQuantity}</h2>
+            <button onClick={props.buyItem}>Buy Items</button>
+        </div>
     )
 }
 const mapStateToProps = (state, ownProps) => ({
@@ -12,8 +15,8 @@ const mapStateToProps = (state, ownProps) => ({
     item: ownProps.hasOwnProperty('cake') ? 'cake' : 'icecreame',
     itemQuantity: ownProps.hasOwnProperty('cake') ? state.cake.numberOfCakes : state.icecream.numberOfIcecreams,
 })
-const mapDispatchToProps = dispatch => ({
+const mapDispatchToProps = (dispatch, ownProps) => ({
     // adds provided key: value to props
-    buyCake: () => dispatch(buyCake()),
+    buyItem: ownProps.hasOwnProperty('cake') ? () => dispatch(buyCake()) : () => dispatch(buyIcecreams()),
 })
 export default connect(mapStateToProps, mapDispatchToProps)(ItemContainer)
