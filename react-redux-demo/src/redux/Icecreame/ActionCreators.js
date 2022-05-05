@@ -1,2 +1,2 @@
 import { BUY_ICECREAME } from "./ActionTypes";
-export const buyIcecrames = () => ({ type: BUY_ICECREAME })
+export const buyIcecreams = () => ({ type: BUY_ICECREAME })

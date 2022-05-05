@@ -3,6 +3,6 @@ import cakeReducer from './Cake/Reducers';
 import icecreameReducer from './Icecreame/Reducers'
 const rootReducer = combineReducers({
     cake: cakeReducer,
-    icecreame: icecreameReducer,
+    icecream: icecreameReducer,
 });
 export default rootReducer;
