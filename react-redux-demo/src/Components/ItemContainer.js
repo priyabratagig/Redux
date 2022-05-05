@@ -20,3 +20,5 @@ const mapDispatchToProps = (dispatch, ownProps) => ({
     buyItem: ownProps.hasOwnProperty('cake') ? () => dispatch(buyCake()) : () => dispatch(buyIcecreams()),
 })
 export default connect(mapStateToProps, mapDispatchToProps)(ItemContainer)
+// for not subscribing changes to store
+// export default connect(null, mapDispatchToProps)(ItemContainer)
